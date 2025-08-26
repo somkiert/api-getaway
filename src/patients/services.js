@@ -3,7 +3,7 @@ import { getPool } from '../common/db.js';
 export async function findAll() {
   const pool = await getPool();
   const result = await pool.request().query(`
-    SELECT TOP 50 HN, dbo.GetFullNameWithTitle(HN) as FullName FROM dbo.PATIENT
+    SELECT TOP 50 HN, dbo.GetFullNameWithTitle(HN) as FullName FROM dbo.PATIENT_REF
   `);
   return result.recordset;
 }
@@ -12,7 +12,7 @@ export async function findByHn(hn) {
   const pool = await getPool();
   const result = await pool.request()
     .input('hn', hn)
-    .query(`SELECT TOP 1 HN, dbo.GetFullNameWithTitle(HN) as FullName FROM dbo.PATIENT WHERE HN=@hn`);
+    .query(`SELECT TOP 1 HN, dbo.GetFullNameWithTitle(HN) as FullName FROM dbo.PATIENT_REF WHERE HN=@hn`);
   return result.recordset[0];
 }
 
