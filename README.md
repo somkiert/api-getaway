@@ -66,9 +66,16 @@ docker logs -f api-getaway
 
 1) ดึง/อัปเดตโค้ด  
 ~~~bash
+# login เข้า server
 ssh user@server
+
+# เข้าโฟลเดอร์โปรเจกต์บน server
 cd /opt/api-getaway
+# ดึงโค้ดใหม่จาก GitHub
 git pull
+
+# Rebuild container เพื่อเอาโค้ดใหม่เข้าไปใน image
+docker compose up -d --build
 ~~~
 
 2) เซ็ตค่า `.env` (ทำบนเซิร์ฟเวอร์เท่านั้น)  
