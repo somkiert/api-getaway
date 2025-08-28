@@ -2,47 +2,56 @@ import { getPool } from '../common/db.js';
 import sql from 'mssql';
 
 export const getVitalsPayload = async (startDate, endDate) => {
-  const pool = await getPool();
-  const result = await pool.request()
-    .input('startDate', sql.Date, startDate)
-    .input('endDate', sql.Date, endDate)
-    .query(`
-      SELECT TOP 50 saintmed.*,
-        (
-          SELECT TOP 1 VNMST_SUBQRY.hn
-          FROM SSBDatabase.dbo.VNMST VNMST_SUBQRY
-          WHERE VNMST_SUBQRY.vn = saintmed.vn
-          ORDER BY VNMST_SUBQRY.VISITDATE DESC
-        ) AS [hn]
-      FROM SSBDatabase.dbo.saintmed
-      WHERE CONVERT(DATE, LEFT(datetime, 8)) BETWEEN @startDate AND @endDate
-      ORDER BY datetime DESC;
-    `);
+  try {
+    const pool = await getPool();
+    const result = await pool.request()
+      .input('startDate', sql.Date, startDate)
+      .input('endDate', sql.Date, endDate)
+      .query(`
+        SELECT TOP 50 saintmed.*,
+          (
+            SELECT TOP 1 VNMST_SUBQRY.hn
+            FROM SSBDatabase.dbo.VNMST VNMST_SUBQRY
+            WHERE VNMST_SUBQRY.vn = saintmed.vn
+            ORDER BY VNMST_SUBQRY.VISITDATE DESC
+          ) AS [hn]
+        FROM SSBDatabase.dbo.saintmed
+        WHERE CONVERT(DATE, LEFT(datetime, 8)) BETWEEN @startDate AND @endDate
+        ORDER BY datetime DESC;
+      `);
 
-  return result.recordset.map(med => ({
-    hn: med.hn,
-    datetime: med.datetime,
-    ip: med.ip,
-    macAddress: med.macAddress ?? null,
-    results: [
-      { name: 'WEIGHT', value: med.weight, valueType: 'float', unit: 'kg' },
-      { name: 'HEIGHT', value: med.height, valueType: 'float', unit: 'cm' },
-      { name: 'BMI', value: med.bmi, valueType: 'float', unit: '' },
-      { name: 'TEMPERATURE', value: med.temperature, valueType: 'float', unit: '°C' },
-      { name: 'SYSTOLIC', value: med.systolic, valueType: 'integer', unit: 'mmHg' },
-      { name: 'DIASTOLIC', value: med.diastolic, valueType: 'integer', unit: 'mmHg' },
-      { name: 'PULSE', value: med.pulse, valueType: 'integer', unit: 'bpm' },
-      { name: 'SPO2', value: med.spo2, valueType: 'integer', unit: '%' },
-    ]
-  }));
+    if (!result.recordset || result.recordset.length === 0) {
+      console.warn('⚠️ No vitals data found for given date range.');
+      return [];
+    }
+
+    return result.recordset.map(med => ({
+      hn: med.hn ?? 'ไม่พบ HN',
+      datetime: med.datetime,
+      ip: med.ip,
+      macAddress: med.macAddress ?? null,
+      results: [
+        { name: 'WEIGHT', value: med.weight ?? null, valueType: 'float', unit: 'kg' },
+        { name: 'HEIGHT', value: med.height ?? null, valueType: 'float', unit: 'cm' },
+        { name: 'BMI', value: med.bmi ?? null, valueType: 'float', unit: '' },
+        { name: 'TEMPERATURE', value: med.temperature ?? null, valueType: 'float', unit: '°C' },
+        { name: 'SYSTOLIC', value: med.systolic ?? null, valueType: 'integer', unit: 'mmHg' },
+        { name: 'DIASTOLIC', value: med.diastolic ?? null, valueType: 'integer', unit: 'mmHg' },
+        { name: 'PULSE', value: med.pulse ?? null, valueType: 'integer', unit: 'bpm' },
+        { name: 'SPO2', value: med.spo2 ?? null, valueType: 'integer', unit: '%' },
+      ]
+    }));
+  } catch (err) {
+    console.error('❌ getVitalsPayload error:', err.message);
+    throw err; // ให้ caller จัดการต่อ เช่นใน controller
+  }
 };
 
-function calculateAgeTextThaiYMD(birthDate) {
+function calculateAgeTextThaiYMD(birthDateInput) {
+  const birthDate = typeof birthDateInput === 'string' ? new Date(birthDateInput) : birthDateInput;
+
   if (!(birthDate instanceof Date) || isNaN(birthDate)) {
-    console.log('Raw birthDate:', birthDate)
-    console.log('Type:', typeof birthDate)
-    console.log('ToString:', birthDate.toString())
-    console.log('ISO:', birthDate instanceof Date ? birthDate.toISOString() : 'ไม่ใช่ Date')
+    console.warn('⚠️ Invalid birthDate:', birthDateInput);
     return 'วันเกิดไม่ถูกต้อง';
   }
 
@@ -67,6 +76,5 @@ function calculateAgeTextThaiYMD(birthDate) {
   }
 
   return `${years} ปี ${months} เดือน ${days} วัน`;
-};
-
+}
 

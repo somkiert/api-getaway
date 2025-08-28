@@ -11,7 +11,7 @@ export const getToken = async () => {
 
 export const getTokenTest = async () => {
   const jsn = {
-    token: 'tesssssst'
+    token: 'tesssssstTOKENexl1234645646466646466'
   };
   return jsn;
 };
@@ -46,4 +46,3 @@ export function isValidDateString(dateStr) {
   const date = new Date(dateStr);
   return !isNaN(date.getTime());
 }
-1
