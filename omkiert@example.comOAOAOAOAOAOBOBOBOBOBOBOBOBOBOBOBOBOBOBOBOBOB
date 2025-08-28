@@ -1,0 +1,91 @@
+[33mcommit 1b77925b93466c8d1b116c5f7de10a2c4d279853[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Somkiert <somkiert_p@hotmail.com>
+Date:   Wed Aug 27 17:04:15 2025 +0700
+
+    test
+
+ src/vital/external.js | 1 [32m+[m
+ 1 file changed, 1 insertion(+)
+
+[33mcommit 51c9083444438df44d3145a93fb45e7f65c90795[m
+Author: Somkiert <somkiert_p@hotmail.com>
+Date:   Wed Aug 27 17:00:24 2025 +0700
+
+    vital
+
+ src/vital/controller.js | 50 [32m++++++++++++++++++++++++++++++++++[m
+ src/vital/external.js   | 48 [32m+++++++++++++++++++++++++++++++++[m
+ src/vital/routes.js     |  6 [32m+++++[m
+ src/vital/schema.js     | 38 [32m++++++++++++++++++++++++++[m
+ src/vital/services.js   | 72 [32m+++++++++++++++++++++++++++++++++++++++++++++++++[m
+ 5 files changed, 214 insertions(+)
+
+[33mcommit bdbe5e779cefa626f9c201889aaf30d004e7ea36[m[33m ([m[1;31mupstream/main[m[33m, [m[1;31mupstream/HEAD[m[33m)[m
+Author: DigitalHelathSBH <digitalhealth.sbh2@gmail.com>
+Date:   Wed Aug 27 10:57:23 2025 +0700
+
+    Update README.md
+
+ README.md | 15 [32m++++++++++++[m[31m---[m
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+
+[33mcommit 56505bea23fff0a8f2b44ff2838ff608c815d20a[m
+Merge: 2a979c5 167fed5
+Author: DigitalHealthSBH <digitalhealth.sbh2@gmail.com>
+Date:   Wed Aug 27 10:56:40 2025 +0700
+
+    Merge branch 'main' of https://github.com/DigitalHelathSBH/api-getaway
+
+[33mcommit 2a979c57034194986c1c49692047721b59eae75c[m
+Author: DigitalHealthSBH <digitalhealth.sbh2@gmail.com>
+Date:   Wed Aug 27 10:56:37 2025 +0700
+
+    edit env
+
+ .env | 2 [32m+[m[31m-[m
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+[33mcommit 167fed54b7844c2e8801b7a22127686ece01716b[m
+Author: DigitalHelathSBH <digitalhealth.sbh2@gmail.com>
+Date:   Wed Aug 27 09:04:26 2025 +0700
+
+    Update README.md
+
+ README.md | 20 [32m++[m[31m------------------[m
+ 1 file changed, 2 insertions(+), 18 deletions(-)
+
+[33mcommit b23d0202e5270cab6aeae6a4f322c70d0e9ac48a[m
+Author: DigitalHelathSBH <digitalhealth.sbh2@gmail.com>
+Date:   Wed Aug 27 09:02:52 2025 +0700
+
+    Update README.md
+
+ README.md | 7 [32m+++++++[m
+ 1 file changed, 7 insertions(+)
+
+[33mcommit 28f64c1bfecd8f407c63f7804b66e36509d7d09d[m
+Author: DigitalHealthSBH <digitalhealth.sbh2@gmail.com>
+Date:   Tue Aug 26 17:35:56 2025 +0700
+
+    update patients/services.js
+
+ src/patients/services.js | 4 [32m++[m[31m--[m
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+[33mcommit 2c2b215e7cda784e051961d4b1b2cc86a1c3309e[m
+Author: DigitalHelathSBH <digitalhealth.sbh2@gmail.com>
+Date:   Tue Aug 26 17:11:55 2025 +0700
+
+    Create README.md
+
+ README.md | 154 [32m++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++[m
+ 1 file changed, 154 insertions(+)
+
+[33mcommit 9a0cb9da448783564d756b28945f5727faeb3ded[m
+Author: DigitalHealthSBH <digitalhealth.sbh2@gmail.com>
+Date:   Tue Aug 26 16:22:09 2025 +0700
+
+    repo API
+
+ .gitignore | 1 [32m+[m
+ 1 file changed, 1 insertion(+)
