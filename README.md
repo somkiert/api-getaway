@@ -152,3 +152,4 @@ docker logs -f api-getaway          # ติดตาม log
 docker compose down                 # หยุดคอนเทนเนอร์
 docker compose up -d --build        # สร้างใหม่และรัน
 ~~~
+
